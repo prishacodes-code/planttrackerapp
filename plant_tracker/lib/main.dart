@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'login_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const FactoryApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FactoryApp extends StatelessWidget {
+  const FactoryApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text("Plant Tracker Running"),
-        ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Factory Management',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.green,
       ),
+      // Removed 'const' here because isAdmin is a dynamic parameter
+      home: const LoginScreen(),
     );
   }
 }
