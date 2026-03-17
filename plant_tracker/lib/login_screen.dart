@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'admin_dashboard.dart';
+import 'worker_dashboard.dart';
 // Note: You'll need to create a worker_dashboard.dart or similar later!
 
 class LoginScreen extends StatefulWidget {
@@ -76,15 +77,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       ),
-                      onPressed: () {
-                        // Logic to choose which dashboard to open
-                        if (isAdmin) {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminDashboard()));
-                        } else {
-                          // For now, it goes to Admin, but you can point this to a WorkerDashboard
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Worker Dashboard coming soon!"))
-                          );
+                        onPressed: () {
+                          // Logic to choose which dashboard to open
+                          if (isAdmin) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const AdminDashboard())
+                            );
+                          } else {
+                            // CHANGE THIS: Replace the SnackBar with the Navigator line below
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const WorkerDashboard())
+                            );
                         }
                       },
                       child: const Text("SIGN IN", style: TextStyle(fontWeight: FontWeight.bold)),
