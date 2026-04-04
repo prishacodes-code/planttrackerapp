@@ -161,3 +161,11 @@ function generateMonthlyReport(month) {
         lowestWorker: worst.id
     };
 }
+
+console.log("Salary:", calculateSalary("W001", "March"));
+
+console.log("Attendance:", markAttendance("W002", "10:00", "18:00"));
+
+console.log("Order Processing:", processOrder("ORD-2026-001"));
+
+console.log("Report:", generateMonthlyReport("March"));
