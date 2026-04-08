@@ -1,0 +1,265 @@
+{
+  "rolesPermissions": {
+    "admin": ["all"],
+    "worker": ["view_own_profile", "view_own_salary"]
+  },
+
+  "owners": {
+    "O001": {
+      "name": "Hemant P",
+      "age": 46,
+      "role": "admin",
+      "phone": "+918828635008",
+      "uid": ""
+    },
+    "O002": {
+      "name": "Payal P",
+      "age": 37,
+      "role": "admin",
+      "phone": "+917977361064",
+      "uid": ""
+    }
+  },
+
+  "workers": {
+    "W001": {
+      "name": "Anjana Wagh",
+      "age": 36,
+      "role": "worker",
+      "phone": "+919004311450",
+      "uid": "",
+      "dailyWage": 650,
+      "hourlyRate": 40,
+      "department": "Production Unit 3",
+      "attendanceScore": 92
+    },
+    "W002": {
+      "name": "Jaya Desale",
+      "age": 44,
+      "role": "worker",
+      "phone": "+917798678234",
+      "uid": "",
+      "dailyWage": 650,
+      "hourlyRate": 40,
+      "department": "Production Unit 2",
+      "attendanceScore": 88
+    },
+    "W003": {
+      "name": "Vishu Bhalerao",
+      "age": 30,
+      "role": "worker",
+      "phone": "+917410520627",
+      "uid": "",
+      "dailyWage": 600,
+      "hourlyRate": 40,
+      "department": "Warehouse",
+      "attendanceScore": 80
+    },
+    "W004": {
+      "name": "Salma Sayyed",
+      "age": 28,
+      "role": "worker",
+      "phone": "+917620338105",
+      "uid": "",
+      "dailyWage": 650,
+      "hourlyRate": 45,
+      "department": "Production Unit 1",
+      "attendanceScore": 95
+    },
+    "W005": {
+      "name": "Jyoti Badgujar",
+      "age": 48,
+      "role": "worker",
+      "phone": "+918483006363",
+      "uid": "",
+      "dailyWage": 650,
+      "hourlyRate": 45,
+      "department": "Production Unit 3",
+      "attendanceScore": 90
+    },
+    "W006": {
+      "name": "Gayatri Mahale",
+      "age": 26,
+      "role": "worker",
+      "phone": "+918459948797",
+      "uid": "",
+      "dailyWage": 600,
+      "hourlyRate": 30,
+      "department": "Warehouse",
+      "attendanceScore": 85
+    },
+    "W007": {
+      "name": "Jyoti Biraari",
+      "age": 45,
+      "role": "worker",
+      "phone": "+918421374119",
+      "uid": "",
+      "dailyWage": 600,
+      "hourlyRate": 40,
+      "department": "Production Unit 2",
+      "attendanceScore": 87
+    }
+  },
+
+  "attendance": {
+    "A001": {
+      "workerId": "W001",
+      "date": "2026-03-06",
+      "status": "Present",
+      "checkIn": "09:30",
+      "checkOut": "18:00",
+      "hoursWorked": 8.5,
+      "lateMinutes": 0,
+      "overtimeHours": 0,
+      "shift": "General",
+      "deduction": 0
+    },
+    "A002": {
+      "workerId": "W002",
+      "date": "2026-03-06",
+      "status": "Late",
+      "checkIn": "10:00",
+      "checkOut": "18:00",
+      "hoursWorked": 8,
+      "lateMinutes": 30,
+      "overtimeHours": 0,
+      "shift": "General",
+      "deduction": 14
+    },
+    "A003": {
+      "workerId": "W003",
+      "date": "2026-03-06",
+      "status": "Absent"
+    },
+    "A004": {
+      "workerId": "W004",
+      "date": "2026-03-06",
+      "status": "Present",
+      "checkIn": "09:35",
+      "checkOut": "18:05",
+      "hoursWorked": 8.4,
+      "lateMinutes": 5,
+      "overtimeHours": 0.1,
+      "shift": "General",
+      "deduction": 3
+    }
+  },
+
+  "salary": {
+    "S001": {
+      "workerId": "W001",
+      "month": "March",
+      "totalHours": 188,
+      "hourlyRate": 40,
+      "overtimePay": 0,
+      "grossSalary": 7520,
+      "totalDeductions": 990,
+      "festivalBonus": 0,
+      "netSalary": 6530,
+      "finalCalculation": {
+        "base": 7520,
+        "deductions": 990,
+        "bonus": 0,
+        "overtime": 0
+      }
+    }
+  },
+
+  "inventory": {
+    "I001": {
+      "name": "Preservatives",
+      "supplier": "ChemTech Solutions",
+      "available": 250,
+      "minStock": 150,
+      "unit": "kg",
+      "status": "Safe",
+      "lastRestocked": "2026-02-20",
+      "usageRate": "medium",
+      "autoAlert": false
+    },
+    "I002": {
+      "name": "Sugar",
+      "supplier": "Sweet Supply Co.",
+      "available": 450,
+      "minStock": 800,
+      "unit": "kg",
+      "status": "Low",
+      "lastRestocked": "2026-02-18",
+      "usageRate": "high",
+      "autoAlert": true
+    },
+    "I003": {
+      "name": "Essence",
+      "supplier": "Flavor House Co.",
+      "available": 85,
+      "minStock": 120,
+      "unit": "liters",
+      "status": "Low",
+      "lastRestocked": "2026-02-25",
+      "usageRate": "medium",
+      "autoAlert": true
+    }
+  },
+
+  "orders": {
+    "ORD-2026-001": {
+      "flavour": "Jeera",
+      "quantity": 5000,
+      "date": "2026-03-01",
+      "client": "Fresh",
+      "status": "Pending",
+      "priority": "High",
+      "assignedWorkers": ["W001", "W002"],
+      "progress": 0
+    },
+    "ORD-2026-002": {
+      "flavour": "Mango",
+      "quantity": 7500,
+      "date": "2026-03-03",
+      "client": "Super",
+      "status": "Processing",
+      "priority": "Medium",
+      "assignedWorkers": ["W003", "W004"],
+      "progress": 50
+    }
+  },
+
+  "notifications": {
+    "N001": {
+      "type": "LOW_STOCK",
+      "message": "Sugar is below minimum level",
+      "time": "08:00",
+      "severity": "high"
+    }
+  },
+
+  "reports": {
+    "monthly": {
+      "totalSalaryPaid": 26000,
+      "topPerformer": "W004",
+      "lowestAttendance": "W003"
+    }
+  },
+
+  "dashboard": {
+    "present": 3,
+    "pendingOrders": 1,
+    "completedOrders": 0,
+    "lowStock": 2
+  },
+
+  "rules": {
+    "workingHours": {
+      "start": "09:30",
+      "end": "18:00",
+      "totalHours": 8.5
+    },
+    "salary": {
+      "minHourly": 26,
+      "maxHourly": 50,
+      "lateDeduction": "hour_based",
+      "bonus": "festival_only",
+      "overtimeMultiplier": 1.5
+    }
+  }
+}
