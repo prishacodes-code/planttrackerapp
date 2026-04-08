@@ -3,8 +3,37 @@ const data = require('./data.json');
 // ------------------ RBAC ------------------
 function hasPermission(role, action) {
     const permissions = data.rolesPermissions[role];
+    if (!permissions) return false;
     if (permissions.includes("all")) return true;
     return permissions.includes(action);
+}
+
+// ------------------ USER LOOKUP (for OTP login) ------------------
+function getUserByPhone(phone) {
+    const ownerEntry = Object.entries(data.owners).find(
+        ([id, o]) => o.phone === phone
+    );
+    if (ownerEntry) {
+        return { id: ownerEntry[0], ...ownerEntry[1], collection: "owners" };
+    }
+
+    const workerEntry = Object.entries(data.workers).find(
+        ([id, w]) => w.phone === phone
+    );
+    if (workerEntry) {
+        return { id: workerEntry[0], ...workerEntry[1], collection: "workers" };
+    }
+
+    return null;
+}
+
+// ------------------ LINK UID AFTER OTP LOGIN ------------------
+function linkUidToUser(phone, uid) {
+    const user = getUserByPhone(phone);
+    if (!user) return { success: false, message: "Phone not found" };
+
+    data[user.collection][user.id].uid = uid;
+    return { success: true, message: `UID linked to ${user.name}` };
 }
 
 // ------------------ ATTENDANCE ------------------
@@ -38,17 +67,28 @@ function markAttendance(workerId, checkIn, checkOut) {
 }
 
 // ------------------ SALARY ------------------
+function getMonthString(month) {
+    const monthMap = {
+        "January": "01", "February": "02", "March": "03",
+        "April": "04", "May": "05", "June": "06",
+        "July": "07", "August": "08", "September": "09",
+        "October": "10", "November": "11", "December": "12"
+    };
+    return monthMap[month] || "03";
+}
+
 function calculateSalary(workerId, month) {
 
     const worker = data.workers[workerId];
     const records = Object.values(data.attendance);
+    const monthNum = getMonthString(month);
 
     let totalHours = 0;
     let totalDeductions = 0;
     let overtimeHours = 0;
 
     records.forEach(r => {
-        if (r.workerId === workerId && r.date.includes("2026-03")) {
+        if (r.workerId === workerId && r.date.includes(`2026-${monthNum}`)) {
             if (r.status !== "Absent") {
                 totalHours += r.hoursWorked || 0;
                 totalDeductions += r.deduction || 0;
@@ -68,11 +108,12 @@ function calculateSalary(workerId, month) {
 
     return {
         workerId,
+        month,
         totalHours,
-        grossSalary,
-        overtimePay,
-        totalDeductions,
-        netSalary
+        grossSalary: Math.round(grossSalary),
+        overtimePay: Math.round(overtimePay),
+        totalDeductions: Math.round(totalDeductions),
+        netSalary: Math.round(netSalary)
     };
 }
 
@@ -106,6 +147,13 @@ function generateAlerts() {
 
 // ------------------ DASHBOARD ------------------
 function updateDashboard() {
+
+    const todayStr = new Date().toISOString().split("T")[0];
+
+    data.dashboard.present =
+        Object.values(data.attendance).filter(
+            a => a.date === todayStr && a.status !== "Absent"
+        ).length;
 
     data.dashboard.pendingOrders =
         Object.values(data.orders).filter(o => o.status === "Pending").length;
@@ -162,10 +210,22 @@ function generateMonthlyReport(month) {
     };
 }
 
+// ------------------ TEST OUTPUTS ------------------
 console.log("Salary:", calculateSalary("W001", "March"));
-
 console.log("Attendance:", markAttendance("W002", "10:00", "18:00"));
-
 console.log("Order Processing:", processOrder("ORD-2026-001"));
-
 console.log("Report:", generateMonthlyReport("March"));
+console.log("User by Phone:", getUserByPhone("+919004311450"));
+console.log("Link UID:", linkUidToUser("+919004311450", "firebase-uid-abc123"));
+
+module.exports = {
+    hasPermission,
+    getUserByPhone,
+    linkUidToUser,
+    markAttendance,
+    calculateSalary,
+    processOrder,
+    generateAlerts,
+    updateDashboard,
+    generateMonthlyReport
+};
